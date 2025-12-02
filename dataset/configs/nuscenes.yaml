@@ -1,0 +1,43 @@
+dataset:
+  version: "v1.0-trainval"  # or "v1.0-mini"
+  root_path: "/sscratch/datasets/nuscenes" # or "/data/users/nuscenes" for mini
+  lidar_sensor: "LIDAR_TOP"
+  cameras: 
+    - "CAM_FRONT"
+    - "CAM_BACK"
+    - "CAM_BACK_LEFT"
+    - "CAM_FRONT_LEFT"
+    - "CAM_FRONT_RIGHT"
+    - "CAM_BACK_RIGHT"
+  images: 
+    - "IMG_FRONT"
+    - "IMG_BACK"
+    - "IMG_BACK_LEFT"
+    - "IMG_FRONT_LEFT"
+    - "IMG_FRONT_RIGHT"
+    - "IMG_BACK_RIGHT"
+
+paths:
+  # Path for non-trainval global transformations
+  global_transformations: "/data/users/slahlali/Tri3D-master/trans.pickle"
+  # Pattern for trainval sequence-specific transformations
+  sequence_transformations_pattern: "/home/users/slahlali/sam2/tri3d/transformations/{seq}.pickle"
+  output_root: "kitti_format_output"
+
+model:
+  sam2_checkpoint: "./checkpoints/sam2.1_hiera_large.pt"
+  sam2_config: "configs/sam2.1/sam2.1_hiera_l.yaml"
+
+processing:
+  batch_size: 20
+  # Filter objects that move more than this (meters)
+  static_threshold: 0.5
+  # Minimum points to keep a frame-level object
+  min_points_per_frame: 5
+  # DBSCAN Clustering
+  dbscan_eps: 0.5
+  dbscan_min_samples: 10
+  # Geometric Verification
+  iou_threshold: 0.3
+  # Filter boxes larger than this ratio of image size
+  max_box_size_ratio: 0.9
