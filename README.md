@@ -53,7 +53,7 @@ This phase processes raw NuScenes data to generate a clean, Object-Centric datas
 
 ### Step 1: Calibration Refinement (ICP)
 
-Standard NuScenes projection matrices may lack the precision required for dense temporal aggregation. Run the ICP script to generate refined frame-to-frame transformations.
+Standard NuScenes annotations do not fully account for the ego-vehicle's translation along the vertical axis or its rotation. This lack of precision hinders dense temporal aggregation. Therefore, we run an ICP script to generate refined frame-to-frame transformations to correct these alignment issues.
 
 ```bash
 cd dataset
@@ -122,3 +122,10 @@ If you find this work useful, please cite our paper:
   organization={IEEE}
 }
 ```
+
+## 🙏 Acknowledgements
+
+We acknowledge the incredible open-source contributions from:
+* **[TRI3D](https://github.com/CEA-LIST/tri3d)**: Their codebase provided a robust foundation that allows for seamless switching between NuScenes and Waymo datasets with very minimal code modifications.
+* **[Segment Anything 2 (SAM 2)](https://github.com/facebookresearch/segment-anything-2)**: Used for high-quality instance segmentation in our data generation pipeline.
+* **[MMDetection3D](https://github.com/open-mmlab/mmdetection3d)**: Used as the core framework for training our 3D detection models.
